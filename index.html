@@ -1,0 +1,439 @@
+<!doctype html>
+<!--
+  סקר אוהדי כדורגל (08.11.2026). פורמט סטוריז כמו מדריך הפנסיה: שאלה אחת במסך, לחיצה אחת.
+  השאלות נגזרות מ"מה מחקר מהמחשב לא עונה" במחקר השוק: מחקר-שוק-ספורט/09-methodology.md
+  ערכת צבע: שמש (brand.md). כפתורים כמקשים פיזיים, בלי חצים (no-ai-design-tells).
+-->
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#16260d" />
+  <title>סקר אוהדי כדורגל | שווים יותר</title>
+  <meta name="description" content="9 שאלות קצרות, בערך דקה. עוזרים לנו לבנות את אפליקציית הכדורגל שחסרה לאוהדים בישראל." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://shavimyoter2024-a11y.github.io/seker-ohadim/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:title" content="אוהדי כדורגל? 9 שאלות קצרות, בערך דקה" />
+  <meta property="og:description" content="עוזרים לנו לבנות את אפליקציית הכדורגל שחסרה לכם." />
+  <meta property="og:image" content="https://shavimyoter2024-a11y.github.io/seker-ohadim/assets/logo.jpg" />
+  <meta property="og:url" content="https://shavimyoter2024-a11y.github.io/seker-ohadim/" />
+  <link rel="icon" href="assets/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@500;700;800&family=Heebo:wght@800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pitch:#16260d; --pitch-2:#1e3212; --key:#2b4419; --key-edge:#0b1606; --line:rgba(244,241,228,.16);
+      --cream:#f4f1e4; --soft:rgba(244,241,228,.74); --yellow:#facd07; --yellow-edge:#9b7f00; --ink:#1c1800;
+      --f-display:"Heebo","Assistant",system-ui,sans-serif;
+      --f-body:"Assistant","Heebo",system-ui,"Segoe UI",sans-serif;
+      --t-h2:clamp(28px, 8.4vw, 34px); --t-lead:18px; --t-btn:18px; --t-small:15px;
+      --gutter:24px; --btn-h:56px; --r:12px; --pad-top:96px; --gap:12px;
+    }
+    @media (max-height: 690px) { :root { --t-h2:26px; --t-lead:17px; --t-btn:17px; --btn-h:50px; --pad-top:80px; --gap:10px; } }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; background: #0c1607; color: var(--cream); font: 500 var(--t-lead)/1.5 var(--f-body); -webkit-font-smoothing: antialiased; overscroll-behavior: none; }
+    h2, p { margin: 0; }
+    h2 { font-family: var(--f-display); text-wrap: balance; }
+    button, input, textarea { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+    .stage { position: relative; width: 100%; height: 100dvh; margin: 0 auto; overflow: hidden; background: var(--pitch); }
+    @media (min-width: 560px) {
+      body { display: grid; place-items: center; min-height: 100dvh; }
+      .stage { width: 420px; height: min(860px, calc(100dvh - 48px)); border-radius: 24px; box-shadow: 0 30px 80px -30px rgba(0,0,0,.8); }
+    }
+    .bars { position: absolute; z-index: 5; top: 0; inset-inline: 0; display: flex; gap: 4px; padding: calc(env(safe-area-inset-top) + 8px) var(--gutter) 0; }
+    .bars span { flex: 1; height: 3px; border-radius: 2px; background: rgba(244,241,228,.22); }
+    .bars span.done { background: var(--yellow); }
+    .topline { position: absolute; z-index: 5; top: calc(env(safe-area-inset-top) + 24px); inset-inline: var(--gutter); display: flex; align-items: center; gap: 8px; }
+    .topline img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background: #fff; }
+    .topline b { display: block; font: 700 14px/1 var(--f-body); }
+    .topline span { display: block; margin-top: 4px; font: 500 14px/1 var(--f-body); color: var(--soft); }
+
+    .story { position: absolute; inset: 0; display: flex; flex-direction: column; padding: calc(env(safe-area-inset-top) + var(--pad-top)) var(--gutter) calc(env(safe-area-inset-bottom) + 72px); text-align: center; visibility: hidden; opacity: 0; transition: opacity .25s ease, visibility 0s .25s; overflow-y: auto; }
+    .story.active { visibility: visible; opacity: 1; transition: opacity .25s ease; }
+    .story > * { width: 100%; max-width: 360px; margin-inline: auto; }
+    .story.intro { justify-content: safe center; padding-bottom: calc(env(safe-area-inset-bottom) + 40px); }
+
+    .kicker { display: block; font: 700 14px/1.2 var(--f-body); color: var(--yellow); letter-spacing: .02em; }
+    .story h2 { margin-top: 12px; font-size: var(--t-h2); font-weight: 800; line-height: 1.15; }
+    .lead { margin-top: 12px; color: var(--soft); max-width: 32ch; margin-inline: auto; }
+
+    /* מקשים */
+    .opts { display: grid; gap: var(--gap); margin-top: 32px; }
+    .opts.two { grid-template-columns: 1fr 1fr; }
+    .key { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: var(--btn-h); padding: 8px 12px; border: 0; border-radius: var(--r); background: var(--key); color: var(--cream); font: 700 var(--t-btn)/1.2 var(--f-body); box-shadow: 0 4px 0 var(--key-edge); cursor: pointer; transition: transform .08s ease, box-shadow .08s ease, background .15s ease; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    .key small { display: block; margin-top: 4px; font: 500 14px/1.25 var(--f-body); color: var(--soft); }
+    .key.down, .key:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--key-edge); }
+    .key.picked { background: var(--yellow); color: var(--ink); box-shadow: 0 4px 0 var(--yellow-edge); }
+    .key.picked small { color: rgba(28,24,0,.72); }
+    .key.picked.down { box-shadow: 0 1px 0 var(--yellow-edge); }
+    .key .tick { position: absolute; inset-inline-start: 12px; top: 50%; width: 20px; height: 20px; margin-top: -10px; border-radius: 6px; border: 2px solid var(--soft); }
+    .key.picked .tick { border-color: var(--ink); background: var(--ink); box-shadow: inset 0 0 0 3px var(--yellow); }
+    .multi .key { padding-inline-start: 40px; }
+    .two.multi .key { font-size: 16px; padding-inline-end: 8px; }
+
+    .cta { display: flex; align-items: center; justify-content: center; width: 100%; min-height: var(--btn-h); margin-top: 32px; padding: 0 24px; border: 0; border-radius: var(--r); background: var(--yellow); color: var(--ink); font: 800 var(--t-btn)/1.2 var(--f-body); text-decoration: none; box-shadow: 0 4px 0 var(--yellow-edge); cursor: pointer; transition: transform .08s ease, box-shadow .08s ease, opacity .15s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    .cta.down, .cta:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--yellow-edge); }
+    .cta[disabled] { opacity: .4; cursor: default; transform: none; }
+    .cta.alt { background: var(--key); color: var(--cream); box-shadow: 0 4px 0 var(--key-edge); }
+    .cta.alt.down, .cta.alt:active { box-shadow: 0 1px 0 var(--key-edge); }
+
+    .back { position: absolute; z-index: 5; inset-inline: 0; bottom: calc(env(safe-area-inset-bottom) + 16px); display: flex; justify-content: center; }
+    .back button { min-height: 44px; padding: 0 16px; border: 0; background: none; color: var(--soft); font: 700 15px/1 var(--f-body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+    .back[hidden] { display: none; }
+
+    .meta { margin-top: 16px; font: 500 var(--t-small)/1.4 var(--f-body); color: var(--soft); }
+
+    /* סיום */
+    .end { padding-top: calc(env(safe-area-inset-top) + 80px); padding-bottom: calc(env(safe-area-inset-bottom) + 24px); }
+    form { display: grid; gap: 10px; margin-top: 20px; text-align: start; }
+    label.f + .in { margin-top: -4px; }
+    form[hidden] { display: none; }
+    label.f { display: grid; gap: 4px; font: 700 15px/1.3 var(--f-body); }
+    label.f i { font-style: normal; font-weight: 500; color: var(--soft); }
+    .in { width: 100%; min-height: 50px; padding: 0 14px; border-radius: 10px; border: 2px solid var(--line); background: var(--pitch-2); color: var(--cream); font: 500 17px/1.3 var(--f-body); }
+    textarea.in { min-height: 72px; padding: 12px 14px; resize: none; }
+    .in:focus { outline: none; border-color: var(--yellow); }
+    .in[aria-invalid="true"] { border-color: #ff9a7a; }
+    .check { display: flex; gap: 10px; align-items: flex-start; font: 500 15px/1.4 var(--f-body); color: var(--soft); cursor: pointer; }
+    .check input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--yellow); }
+    .check a { color: var(--cream); }
+    form .cta { margin-top: 8px; }
+    .err { min-height: 20px; font: 700 14px/1.4 var(--f-body); color: #ffb39b; text-align: center; }
+    .done-box { margin-top: 24px; padding: 20px; border-radius: 16px; background: var(--pitch-2); border: 1px solid var(--line); }
+    .done-box[hidden] { display: none; }
+    .done-box b { display: block; font: 800 20px/1.3 var(--f-display); }
+    .done-box p { margin-top: 8px; color: var(--soft); }
+    .legal { margin-top: 24px; display: flex; justify-content: center; gap: 0 16px; flex-wrap: wrap; }
+    .legal a { min-height: 44px; display: inline-flex; align-items: center; color: var(--soft); font: 700 14px/1 var(--f-body); text-underline-offset: 3px; }
+
+    .active .anim { animation: rise .35s ease both; }
+    .active .d1 { animation-delay: .05s; } .active .d2 { animation-delay: .1s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="stage" id="stage" aria-label="סקר אוהדי כדורגל">
+    <div class="bars" id="bars" aria-hidden="true"></div>
+    <div class="topline">
+      <img src="assets/logo.jpg" alt="" width="32" height="32" />
+      <div><b>שווים יותר</b><span>סקר אוהדים</span></div>
+    </div>
+
+    <section class="story intro" data-name="intro">
+      <span class="kicker anim">סקר אוהדי כדורגל</span>
+      <h2 class="anim d1">עוזרים לנו לבנות את אפליקציית הכדורגל שחסרה לכם</h2>
+      <p class="lead anim d2">9 שאלות קצרות. בערך דקה. בלי שם ובלי טלפון.</p>
+      <button class="cta anim d2" type="button" data-start data-cta="start">יאללה, מתחילים</button>
+    </section>
+
+    <section class="story" data-name="team" data-q="team">
+      <span class="kicker">שאלה</span>
+      <h2>לאיזו קבוצה אתם אוהדים?</h2>
+      <div class="opts two" role="group" aria-label="קבוצה">
+        <button class="key" type="button">מכבי ת"א</button>
+        <button class="key" type="button">מכבי חיפה</button>
+        <button class="key" type="button">בית"ר ירושלים</button>
+        <button class="key" type="button">הפועל ב"ש</button>
+        <button class="key" type="button">הפועל ת"א</button>
+        <button class="key" type="button">קבוצה אחרת</button>
+        <button class="key" type="button">רק כדורגל אירופי</button>
+        <button class="key" type="button">אין לי קבוצה</button>
+      </div>
+    </section>
+
+    <section class="story" data-name="freq" data-q="freq">
+      <span class="kicker">שאלה</span>
+      <h2>כמה אתם מתעדכנים בכדורגל?</h2>
+      <div class="opts" role="group" aria-label="תדירות">
+        <button class="key" type="button">כל יום</button>
+        <button class="key" type="button">כמה פעמים בשבוע</button>
+        <button class="key" type="button">רק כשיש משחק</button>
+        <button class="key" type="button">רק במשחקים הגדולים</button>
+      </div>
+    </section>
+
+    <section class="story" data-name="sources" data-q="sources" data-multi>
+      <span class="kicker">שאלה</span>
+      <h2>איפה אתם מתעדכנים היום?</h2>
+      <p class="lead">אפשר לבחור כמה</p>
+      <div class="opts two multi" role="group" aria-label="מקורות עדכון">
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>365Scores</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>ספורט 5</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>ONE</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>אפליקציית הקבוצה</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>וואטסאפ או טלגרם</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>אינסטגרם או טיקטוק</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span><span data-v="FotMob או Sofascore" style="display:block"><bdi>FotMob</bdi> או <bdi>Sofascore</bdi></span></button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>גוגל</button>
+      </div>
+      <button class="cta" type="button" data-multi-next disabled>המשך</button>
+    </section>
+
+    <section class="story" data-name="pain" data-q="pain" data-multi>
+      <span class="kicker">שאלה</span>
+      <h2>מה מפריע לכם היום?</h2>
+      <p class="lead">אפשר לבחור כמה</p>
+      <div class="opts two multi" role="group" aria-label="מה מפריע">
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>יותר מדי פרסומות</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>התראות מאחרות או מספיילרות</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>חסר תוכן על הקבוצה שלי</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>צריך כמה אפליקציות</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>קשה להשיג כרטיסים</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>אין עם מי לדבר על המשחק</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>האפליקציות איטיות או קורסות</button>
+        <button class="key" type="button" aria-pressed="false" data-none><span class="tick" aria-hidden="true"></span>הכל בסדר אצלי</button>
+      </div>
+      <button class="cta" type="button" data-multi-next disabled>המשך</button>
+    </section>
+
+    <section class="story" data-name="moment" data-q="moment" data-multi>
+      <span class="kicker">שאלה</span>
+      <h2>מתי הכי חסרה לכם אפליקציה טובה יותר?</h2>
+      <p class="lead">אפשר לבחור כמה</p>
+      <div class="opts multi" role="group" aria-label="רגע">
+        <button class="key" type="button" aria-pressed="false" data-v="לפני המשחק"><span class="tick" aria-hidden="true"></span>לפני המשחק<small>הרכבים, כרטיסים, הגעה</small></button>
+        <button class="key" type="button" aria-pressed="false" data-v="בזמן המשחק"><span class="tick" aria-hidden="true"></span>בזמן המשחק<small>תוצאות, צפייה עם חברים</small></button>
+        <button class="key" type="button" aria-pressed="false" data-v="אחרי המשחק"><span class="tick" aria-hidden="true"></span>אחרי המשחק<small>תקצירים, ניתוחים</small></button>
+        <button class="key" type="button" aria-pressed="false" data-v="בימים בלי משחק"><span class="tick" aria-hidden="true"></span>בימים בלי משחק<small>חדשות, העברות, שמועות</small></button>
+      </div>
+      <button class="cta" type="button" data-multi-next disabled>המשך</button>
+    </section>
+
+    <section class="story" data-name="wants" data-q="wants" data-multi>
+      <span class="kicker">שאלה</span>
+      <h2>מה הייתם הכי רוצים באפליקציה?</h2>
+      <p class="lead">אפשר לבחור כמה</p>
+      <div class="opts two multi" role="group" aria-label="מה רוצים">
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>התראות מהירות באמת</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>מצב בלי ספוילרים</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>צפייה משותפת עם חברים</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>ניחושים ותחרויות עם פרסים</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>כרטיסים ומנוי במקום אחד</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>תקצירים קצרים בעברית</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>סטטיסטיקות לעומק</button>
+        <button class="key" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span>תוכן ישיר מהשחקנים</button>
+      </div>
+      <button class="cta" type="button" data-multi-next disabled>המשך</button>
+    </section>
+
+    <section class="story" data-name="switch" data-q="switch">
+      <span class="kicker">שאלה</span>
+      <h2>אם הייתה אפליקציה אחת שעושה הכל, מה הייתם עושים?</h2>
+      <div class="opts" role="group" aria-label="מחליפים או מוסיפים">
+        <button class="key" type="button">מוחקים את האחרות ועוברים</button>
+        <button class="key" type="button">מוסיפים אותה לצד מה שיש</button>
+        <button class="key" type="button">נשארים עם מה שיש</button>
+      </div>
+    </section>
+
+    <section class="story" data-name="pay" data-q="pay">
+      <span class="kicker">שאלה</span>
+      <h2>כמה הייתם משלמים בחודש על אפליקציה בלי פרסומות?</h2>
+      <div class="opts" role="group" aria-label="תשלום">
+        <button class="key" type="button">כלום, נשאר בחינם</button>
+        <button class="key" type="button">עד ₪10</button>
+        <button class="key" type="button">₪10 עד ₪20</button>
+        <button class="key" type="button">מעל ₪20</button>
+      </div>
+    </section>
+
+    <section class="story" data-name="age" data-q="age">
+      <span class="kicker">שאלה</span>
+      <h2>ולסיום, בני כמה אתם?</h2>
+      <div class="opts" role="group" aria-label="גיל">
+        <button class="key" type="button" data-minor>עד 17</button>
+        <button class="key" type="button">18 עד 24</button>
+        <button class="key" type="button">25 עד 34</button>
+        <button class="key" type="button">35 עד 44</button>
+        <button class="key" type="button">45 ומעלה</button>
+      </div>
+    </section>
+
+    <section class="story end" data-name="end">
+      <span class="kicker anim">זהו, סיימתם</span>
+      <h2 class="anim d1">תודה! התשובות נשמרו</h2>
+      <p class="lead anim d2" id="endLead">רוצים לנסות את האפליקציה לפני כולם? השאירו פרטים.</p>
+      <form id="contact" class="anim d2" novalidate>
+        <label class="f" for="fName">שם</label>
+        <input class="in" id="fName" name="full_name" autocomplete="name" required />
+        <label class="f" for="fPhone">טלפון</label>
+        <input class="in" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" style="text-align:right" required />
+        <label class="f" for="fWish">מה הכי חסר לכם? <i>(לא חובה)</i></label>
+        <input class="in" id="fWish" name="wish" maxlength="300" />
+        <label class="check"><input type="checkbox" id="fConsent" required /><span>מאשרים שנחזור אליכם בנוגע לסקר, לפי <a href="privacy.html">מדיניות הפרטיות</a></span></label>
+        <label class="check"><input type="checkbox" id="fMarketing" /><span>אשמח לקבל גם עדכונים והטבות משווים יותר</span></label>
+        <p class="err" id="fErr" role="alert"></p>
+        <button class="cta" type="submit" id="fSend" data-cta="contact">כן, תעדכנו אותי</button>
+      </form>
+      <div class="done-box" id="doneBox" hidden role="status">
+        <b>קיבלנו, תודה!</b>
+        <p>נחזור אליכם כשהאפליקציה תהיה מוכנה לניסיון.</p>
+      </div>
+      <a class="cta alt" id="share" href="#" target="_blank" rel="noopener" data-cta="share">שלחו לחבר אוהד</a>
+      <nav class="legal" aria-label="מידע נוסף">
+        <a href="privacy.html">פרטיות</a>
+        <a href="accessibility.html">נגישות</a>
+      </nav>
+    </section>
+
+    <div class="back" id="back" hidden><button type="button" id="backBtn">חזרה לשאלה הקודמת</button></div>
+  </main>
+
+  <script>
+  (function () {
+    "use strict";
+    var CONFIG = {
+      PAGE_ID: "seker-ohadim",
+      SURVEY_WEBHOOK_URL: "https://hook.eu2.make.com/sl3taxxbzg9ewqcnst91ds5jtb293a2e", // Make hook 4497564, תרחיש 10124184, גיליון 16NqEO8l...
+      ALERT_WEBHOOK_URL: "https://hook.eu2.make.com/dkslglnu96j64jw1ufuddvviy05l5lmd",
+      GA4_ID: "G-NR923MZ0BW"
+    };
+    var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === "file:";
+
+    // ═════ מדידה ═════
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date()); window.gtag("config", CONFIG.GA4_ID);
+    var g = document.createElement("script"); g.async = true; g.src = "https://www.googletagmanager.com/gtag/js?id=" + CONFIG.GA4_ID; document.head.appendChild(g);
+    function track(name, p) { try { p = p || {}; p.page_id = CONFIG.PAGE_ID; window.gtag("event", name, p); } catch (e) {} }
+
+    // ═════ UTM ומזהה ═════
+    var qs = new URLSearchParams(location.search + "&" + location.hash.replace(/^#/, ""));
+    var utm = {};
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) { utm[k] = qs.get(k) || qs.get(k.replace("utm_", "")) || ""; });
+    var sid = "s" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    var startedAt = 0;
+    var answers = {};
+
+    function send(payload) {
+      var body = new URLSearchParams();
+      var base = { page: CONFIG.PAGE_ID, submission_id: sid, client_time: new Date().toISOString(), landing_page: location.href.split("#")[0], referrer: document.referrer || "" };
+      Object.keys(base).forEach(function (k) { body.append(k, base[k]); });
+      Object.keys(utm).forEach(function (k) { body.append(k, utm[k]); });
+      Object.keys(payload).forEach(function (k) { body.append(k, payload[k]); });
+      if (!CONFIG.SURVEY_WEBHOOK_URL) { if (LOCAL) console.log("[survey] local, not sent:", Object.fromEntries(body)); return Promise.resolve({ ok: true, local: true }); }
+      var ctrl = window.AbortController ? new AbortController() : null;
+      var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+      return fetch(CONFIG.SURVEY_WEBHOOK_URL, { method: "POST", body: body, signal: ctrl ? ctrl.signal : undefined })
+        .then(function (r) { return r.text().then(function (tx) { clearTimeout(t); if (!r.ok) throw new Error("HTTP " + r.status); var confirmed = /"ok"\s*:\s*true/.test(tx); if (!confirmed) alertTom("התרחיש לא אישר קבלה", tx.slice(0, 200), payload); return { ok: true, confirmed: confirmed }; }); })
+        .catch(function (err) { clearTimeout(t); alertTom("שליחת הסקר נכשלה", String(err), payload); throw err; });
+    }
+    function alertTom(title, detail, payload) {
+      if (LOCAL && !/test_alert=1/.test(location.search)) return;
+      var b = new URLSearchParams({ page: CONFIG.PAGE_ID, title: "סקר אוהדים: " + title, message: title, action: "לבדוק את תרחיש הסקר ב-Make", detail: detail, full_name: payload.full_name || "", phone: payload.phone || "", url: location.href, time: new Date().toISOString() });
+      try { fetch(CONFIG.ALERT_WEBHOOK_URL, { method: "POST", body: b, mode: "no-cors", keepalive: true }); } catch (e) {}
+    }
+
+    // ═════ מסכים ═════
+    var stories = Array.prototype.slice.call(document.querySelectorAll(".story"));
+    var barsEl = document.getElementById("bars");
+    var back = document.getElementById("back");
+    stories.forEach(function () { barsEl.appendChild(document.createElement("span")); });
+    var cur = -1;
+    function show(i) {
+      if (i < 0 || i >= stories.length) return;
+      if (cur >= 0) stories[cur].classList.remove("active");
+      cur = i;
+      var s = stories[i];
+      void s.offsetWidth; s.classList.add("active"); s.scrollTop = 0;
+      for (var b = 0; b < barsEl.children.length; b++) barsEl.children[b].classList.toggle("done", b <= i);
+      back.hidden = !s.hasAttribute("data-q") || i <= 1;
+      track("story_view", { section_order: i + 1, section: s.getAttribute("data-name") });
+      var f = s.querySelector(".key, .cta"); if (f && document.activeElement && document.activeElement !== document.body) f.focus({ preventScroll: true });
+    }
+    document.getElementById("backBtn").addEventListener("click", function () { show(cur - 1); });
+
+    // מקש פיזי באייפון: :active לא תמיד נדלק
+    document.addEventListener("pointerdown", function (e) { var k = e.target.closest(".key, .cta"); if (k) k.classList.add("down"); });
+    ["pointerup", "pointercancel", "pointerleave"].forEach(function (ev) { document.addEventListener(ev, function () { document.querySelectorAll(".down").forEach(function (k) { k.classList.remove("down"); }); }, true); });
+
+    document.querySelector("[data-start]").addEventListener("click", function () { startedAt = Date.now(); track("survey_start"); show(1); });
+
+    function label(k) { var v = k.getAttribute("data-v") || (k.querySelector("[data-v]") && k.querySelector("[data-v]").getAttribute("data-v")); return (v || k.childNodes[k.childNodes.length - 1].textContent || k.textContent).trim(); }
+
+    var qScreens = stories.filter(function (s) { return s.hasAttribute("data-q"); });
+    var lastQ = qScreens[qScreens.length - 1].getAttribute("data-q");
+    qScreens.forEach(function (s, n) { s.querySelector(".kicker").textContent = "שאלה " + (n + 1) + " מתוך " + qScreens.length; });
+
+    stories.forEach(function (s, i) {
+      var q = s.getAttribute("data-q"); if (!q) return;
+      var keys = s.querySelectorAll(".key");
+      if (s.hasAttribute("data-multi")) {
+        var nextBtn = s.querySelector("[data-multi-next]");
+        keys.forEach(function (k) { k.addEventListener("click", function () {
+          var on = !k.classList.contains("picked"); k.classList.toggle("picked", on); k.setAttribute("aria-pressed", on ? "true" : "false");
+          // "הכל בסדר" לא מסתדר עם בעיות: בחירה בו מנקה את השאר, ולהפך
+          if (on) keys.forEach(function (o) { if (o !== k && (k.hasAttribute("data-none") || o.hasAttribute("data-none"))) { o.classList.remove("picked"); o.setAttribute("aria-pressed", "false"); } });
+          nextBtn.disabled = !s.querySelector(".key.picked");
+        }); });
+        nextBtn.addEventListener("click", function () {
+          var picked = Array.prototype.map.call(s.querySelectorAll(".key.picked"), label);
+          answers[q] = picked.join(", ");
+          track("survey_answer", { section_order: i + 1, section: q, answer: answers[q] });
+          show(i + 1);
+        });
+        return;
+      }
+      keys.forEach(function (k) { k.addEventListener("click", function () {
+        keys.forEach(function (o) { o.classList.toggle("picked", o === k); });
+        answers[q] = label(k);
+        track("survey_answer", { section_order: i + 1, section: q, answer: answers[q] });
+        if (q === "age") minor = k.hasAttribute("data-minor");
+        setTimeout(function () { if (q === lastQ) finish(); else show(i + 1); }, 220);
+      }); });
+    });
+
+    var sent = false, minor = false;
+    function finish() {
+      // מתחת לגיל 18 לא אוספים שם וטלפון
+      form.hidden = minor; document.getElementById("endLead").hidden = minor;
+      show(stories.length - 1);
+      if (sent) return; sent = true;
+      track("survey_complete", { section_order: stories.length, section: "end" });
+      var p = { type: "survey", duration_sec: startedAt ? Math.round((Date.now() - startedAt) / 1000) : "" };
+      qScreens.forEach(function (s) { var q = s.getAttribute("data-q"); p["q_" + q] = answers[q] || ""; });
+      send(p).catch(function () {});
+    }
+
+    // ═════ טופס הפרטים ═════
+    var form = document.getElementById("contact"), err = document.getElementById("fErr"), btn = document.getElementById("fSend");
+    var fName = document.getElementById("fName"), fPhone = document.getElementById("fPhone");
+    var touched = false;
+    form.addEventListener("focusin", function () { if (!touched) { touched = true; track("form_start"); } });
+    function normPhone(v) { v = (v || "").replace(/[\s\-().]/g, ""); v = v.replace(/^\+?972/, "0"); return /^0\d{8,9}$/.test(v) ? v : ""; }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.textContent = ""; fName.removeAttribute("aria-invalid"); fPhone.removeAttribute("aria-invalid");
+      var name = fName.value.trim(), phone = normPhone(fPhone.value);
+      if (name.length < 2) { fName.setAttribute("aria-invalid", "true"); err.textContent = "מה השם שלכם?"; fName.focus(); return; }
+      if (!phone) { fPhone.setAttribute("aria-invalid", "true"); err.textContent = "המספר לא נראה תקין. נסו שוב, למשל 0501234567"; fPhone.focus(); return; }
+      if (!document.getElementById("fConsent").checked) { err.textContent = "צריך לאשר שנחזור אליכם"; return; }
+      btn.disabled = true; btn.textContent = "שולחים...";
+      send({ type: "survey_contact", full_name: name, phone: phone, wish: document.getElementById("fWish").value.trim(), consent: "כן", marketing_consent: document.getElementById("fMarketing").checked ? "כן" : "לא", q_team: answers.team || "", q_pay: answers.pay || "" })
+        .then(function (r) {
+          form.hidden = true; document.getElementById("doneBox").hidden = false;
+          track("generate_lead", { confirmed: !!(r && r.confirmed) });
+        })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = "כן, תעדכנו אותי";
+          err.textContent = "משהו השתבש בשליחה. נסו שוב בעוד רגע.";
+        });
+    });
+
+    // ═════ שיתוף ═════
+    var shareUrl = "https://shavimyoter2024-a11y.github.io/seker-ohadim/?utm_source=share&utm_medium=whatsapp";
+    document.getElementById("share").href = "https://wa.me/?text=" + encodeURIComponent("אוהדי כדורגל? 9 שאלות קצרות, בערך דקה.עוזרים לבנות אפליקציה לאוהדים בישראל " + shareUrl);
+
+    show(0);
+  })();
+  </script>
+  <script src="meta-pixel.js" data-page="seker-ohadim" defer></script>
+</body>
+</html>
