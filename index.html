@@ -10,12 +10,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#16260d" />
   <title>סקר אוהדי כדורגל | שווים יותר</title>
-  <meta name="description" content="9 שאלות קצרות, בערך דקה. עוזרים לנו לבנות את אפליקציית הכדורגל שחסרה לאוהדים בישראל." />
+  <meta name="description" content="10 שאלות קצרות, בערך דקה. עוזרים לנו לבנות את אפליקציית הכדורגל שחסרה לאוהדים בישראל." />
   <meta name="robots" content="noindex" />
   <link rel="canonical" href="https://shavimyoter2024-a11y.github.io/seker-ohadim/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="he_IL" />
-  <meta property="og:title" content="אוהדי כדורגל? 9 שאלות קצרות, בערך דקה" />
+  <meta property="og:title" content="אוהדי כדורגל? 10 שאלות קצרות, בערך דקה" />
   <meta property="og:description" content="עוזרים לנו לבנות את אפליקציית הכדורגל שחסרה לכם." />
   <meta property="og:image" content="https://shavimyoter2024-a11y.github.io/seker-ohadim/assets/logo.jpg" />
   <meta property="og:url" content="https://shavimyoter2024-a11y.github.io/seker-ohadim/" />
@@ -94,6 +94,10 @@
     form { display: grid; gap: 10px; margin-top: 20px; text-align: start; }
     label.f + .in { margin-top: -4px; }
     form[hidden] { display: none; }
+    textarea.in.free { margin-top: 24px; min-height: 128px; font-size: 17px; line-height: 1.5; }
+    .in::placeholder { color: rgba(244,241,228,.45); }
+    .skip { min-height: 44px; margin-top: 8px; border: 0; background: none; color: var(--soft); font: 700 15px/1 var(--f-body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     label.f { display: grid; gap: 4px; font: 700 15px/1.3 var(--f-body); }
     label.f i { font-style: normal; font-weight: 500; color: var(--soft); }
     .in { width: 100%; min-height: 50px; padding: 0 14px; border-radius: 10px; border: 2px solid var(--line); background: var(--pitch-2); color: var(--cream); font: 500 17px/1.3 var(--f-body); }
@@ -129,7 +133,7 @@
     <section class="story intro" data-name="intro">
       <span class="kicker anim">סקר אוהדי כדורגל</span>
       <h2 class="anim d1">עוזרים לנו לבנות את אפליקציית הכדורגל שחסרה לכם</h2>
-      <p class="lead anim d2">9 שאלות קצרות. בערך דקה. בלי שם ובלי טלפון.</p>
+      <p class="lead anim d2">10 שאלות קצרות. בערך דקה. בלי שם ובלי טלפון.</p>
       <button class="cta anim d2" type="button" data-start data-cta="start">יאללה, מתחילים</button>
     </section>
 
@@ -246,7 +250,7 @@
 
     <section class="story" data-name="age" data-q="age">
       <span class="kicker">שאלה</span>
-      <h2>ולסיום, בני כמה אתם?</h2>
+      <h2>בני כמה אתם?</h2>
       <div class="opts" role="group" aria-label="גיל">
         <button class="key" type="button" data-minor>עד 17</button>
         <button class="key" type="button">18 עד 24</button>
@@ -254,6 +258,16 @@
         <button class="key" type="button">35 עד 44</button>
         <button class="key" type="button">45 ומעלה</button>
       </div>
+    </section>
+
+    <section class="story" data-name="free" data-q="free" data-text>
+      <span class="kicker">שאלה</span>
+      <h2>ולסיום, מה הכי חשוב לכם לקבל באפליקציה כזו?</h2>
+      <p class="lead">במילים שלכם. כל רעיון עוזר.</p>
+      <label class="sr" for="fFree">מה הכי חשוב לכם לקבל באפליקציה</label>
+      <textarea class="in free" id="fFree" rows="4" maxlength="500" placeholder="למשל: שאדע על גול לפני כולם"></textarea>
+      <button class="cta" type="button" data-free-next>שליחה</button>
+      <button class="skip" type="button" data-free-skip>דלגו</button>
     </section>
 
     <section class="story end" data-name="end">
@@ -265,8 +279,6 @@
         <input class="in" id="fName" name="full_name" autocomplete="name" required />
         <label class="f" for="fPhone">טלפון</label>
         <input class="in" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" style="text-align:right" required />
-        <label class="f" for="fWish">מה הכי חסר לכם? <i>(לא חובה)</i></label>
-        <input class="in" id="fWish" name="wish" maxlength="300" />
         <label class="check"><input type="checkbox" id="fConsent" required /><span>מאשרים שנחזור אליכם בנוגע לסקר, לפי <a href="privacy.html">מדיניות הפרטיות</a></span></label>
         <label class="check"><input type="checkbox" id="fMarketing" /><span>אשמח לקבל גם עדכונים והטבות משווים יותר</span></label>
         <p class="err" id="fErr" role="alert"></p>
@@ -365,6 +377,17 @@
     stories.forEach(function (s, i) {
       var q = s.getAttribute("data-q"); if (!q) return;
       var keys = s.querySelectorAll(".key");
+      if (s.hasAttribute("data-text")) {
+        var ta = s.querySelector("textarea");
+        var done = function (skipped) {
+          answers[q] = skipped ? "" : ta.value.trim();
+          track("survey_answer", { section_order: i + 1, section: q, answer: answers[q] ? "text" : "skipped" });
+          finish();
+        };
+        s.querySelector("[data-free-next]").addEventListener("click", function () { done(false); });
+        s.querySelector("[data-free-skip]").addEventListener("click", function () { done(true); });
+        return;
+      }
       if (s.hasAttribute("data-multi")) {
         var nextBtn = s.querySelector("[data-multi-next]");
         keys.forEach(function (k) { k.addEventListener("click", function () {
@@ -399,6 +422,7 @@
       track("survey_complete", { section_order: stories.length, section: "end" });
       var p = { type: "survey", duration_sec: startedAt ? Math.round((Date.now() - startedAt) / 1000) : "" };
       qScreens.forEach(function (s) { var q = s.getAttribute("data-q"); p["q_" + q] = answers[q] || ""; });
+      p.wish = answers.free || "";
       send(p).catch(function () {});
     }
 
@@ -416,7 +440,7 @@
       if (!phone) { fPhone.setAttribute("aria-invalid", "true"); err.textContent = "המספר לא נראה תקין. נסו שוב, למשל 0501234567"; fPhone.focus(); return; }
       if (!document.getElementById("fConsent").checked) { err.textContent = "צריך לאשר שנחזור אליכם"; return; }
       btn.disabled = true; btn.textContent = "שולחים...";
-      send({ type: "survey_contact", full_name: name, phone: phone, wish: document.getElementById("fWish").value.trim(), consent: "כן", marketing_consent: document.getElementById("fMarketing").checked ? "כן" : "לא", q_team: answers.team || "", q_pay: answers.pay || "" })
+      send({ type: "survey_contact", full_name: name, phone: phone, wish: answers.free || "", consent: "כן", marketing_consent: document.getElementById("fMarketing").checked ? "כן" : "לא", q_team: answers.team || "", q_pay: answers.pay || "" })
         .then(function (r) {
           form.hidden = true; document.getElementById("doneBox").hidden = false;
           track("generate_lead", { confirmed: !!(r && r.confirmed) });
@@ -429,7 +453,7 @@
 
     // ═════ שיתוף ═════
     var shareUrl = "https://shavimyoter2024-a11y.github.io/seker-ohadim/?utm_source=share&utm_medium=whatsapp";
-    document.getElementById("share").href = "https://wa.me/?text=" + encodeURIComponent("אוהדי כדורגל? 9 שאלות קצרות, בערך דקה.עוזרים לבנות אפליקציה לאוהדים בישראל " + shareUrl);
+    document.getElementById("share").href = "https://wa.me/?text=" + encodeURIComponent("אוהדי כדורגל? 10 שאלות קצרות, בערך דקה.עוזרים לבנות אפליקציה לאוהדים בישראל " + shareUrl);
 
     show(0);
   })();
